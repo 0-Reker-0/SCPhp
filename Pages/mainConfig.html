@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>GLiib</title>
+	<meta charset="UTF-8">
+	<meta lang='RU'>
+	<style>
+		#addPageContainer{
+			display: flex;
+		}
+		form{
+			display: inline-grid;
+			margin: 1vw;
+		}
+	</style>
+	<script>
+		function setFolderFnc(){
+			let folderName = document.getElementById('setFolder');
+			let nowFolder = document.getElementById('folder');
+			nowFolder.value = '/'+folderName.value;
+			folderName.value = '';
+		}
+		
+		function refreshData(){
+		let folderName = document.getElementById('folder');
+		fetch('reurl.php')
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+				outputFiles(data);
+			});
+		}
+		
+		function outputFiles(data){
+			const outDiv = document.getElementById('filesAndFolders');
+			data.forEach(row => {
+				
+			});
+		}
+		
+		refreshData()
+	</script>
+</head>
+<body>
+<nav>
+	<input type = 'button' value = 'На главную' onclick = "window.location.href = '../'">
+</nav>
+<div id = 'container'>
+	Используемая папка <br><input type = 'text' id = 'folder' class = 'textInput' value = '/' disabled>
+	<div id = 'addPageContainer'>
+		<form>
+			Установить папку <br><input type = 'text' id = 'setFolder' class = 'textInput'><br>
+			<input type = 'button' onclick = 'setFolderFnc()' value = 'Установить'>
+		</form>
+		<form action = 'addPage' method = 'POST' autocomplete = 'off' >
+			Добавить страницу <br><input type = 'text' name = 'newPage' class = 'textInput'><br>
+			Добавить отображаемое название <br><input type = 'text' name = 'newUri' class = 'textInput'><br>
+			<input type = 'submit' value = 'Добавить'>
+		</form>
+	</div>
+	<div id = 'filesAndFolders'>
+		
+	</div>
+</div>
+</body>
+</html>
